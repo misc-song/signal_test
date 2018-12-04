@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+<div id="chatList">
+
+
+</div>
+<input id="chatContent" type="text" />
+<input id="send" type="button" value="发送"/>
+
+<script type="text/javascript">
+    var conn = $.connection("/myconnection");
+    conn.start();
+
+    $("#send").click(function () {
+        conn.send($("#chatContent").val());
+    })
+  
+    conn.received(function (data) {
+        //alert(data);
+        $("#chatList").append("<div style='color:red'>" + data + "</div>")
+    });
+   
+
+</script>

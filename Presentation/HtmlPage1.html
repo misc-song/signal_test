@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="Scripts/json2.js"></script>
+</head>
+<body>
+    <input type="button" id="room1" value="房间1"/>
+    <input type="text" id="msg"/>
+    <input type="button" id="sent" value="发送" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var conn = $.connection("/myconn");
+            conn.logging = true;
+            conn.start();
+            $("#room1").click(function () {
+                conn.send({ Msg: "welcome", Room: "room1" });
+            })
+            $("#sent").click(function () {
+                conn.send({ Msg: $("#msg").val(), Room: "room1" });
+            });
+            conn.received(function (data) {
+                console.debug(data);
+            });
+
+        });
+
+
+    </script>
+</body>
+</html>

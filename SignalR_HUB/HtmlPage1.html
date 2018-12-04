@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script src="Scripts/jquery.signalR-2.2.2.js"></script>
+  <!--  <script src="/signalr/js"></script>-->
+   <script src="Scripts/proxy.js"></script>
+    <!--<script src="Scripts/myhub.js"></script>-->
+</head>
+<body>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var proxy = $.connection.userHub;
+            proxy.client.hello = function (msg) {
+                console.log(msg);
+            }
+            $.connection.hub.start().done(function (data) {
+                proxy.server.hello();
+            }).fail(function () {
+
+            });
+
+        });
+    </script>
+</body>
+</html>
